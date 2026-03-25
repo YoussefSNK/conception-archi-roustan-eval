@@ -40,6 +40,16 @@ class StudentIterator3(Iterator):
         return student
 
 
+def add_fourth_grade(cls):
+    original_init = cls.__init__
+    def new_init(self, name, grade1, grade2, grade3, grade4):
+        original_init(self, name, grade1, grade2, grade3)
+        self.grades.append(grade4)
+    cls.__init__ = new_init
+    return cls
+
+
+@add_fourth_grade
 class Student:
     def __init__(self, name, grade1, grade2, grade3):
         self.name = name
@@ -92,9 +102,9 @@ class SchoolClass(Iterable):
 
 
 school_class = SchoolClass()
-school_class.add_student(Student('J', 10, 12, 13))
-school_class.add_student(Student('A', 8, 2, 17))
-school_class.add_student(Student('V', 9, 14, 14))
+school_class.add_student(Student('J', 10, 12, 13, 15))
+school_class.add_student(Student('A', 8, 2, 17, 11))
+school_class.add_student(Student('V', 9, 14, 14, 0))
 school_class.rank_matter_1()
 school_class.rank_matter_2()
 school_class.rank_matter_3()
