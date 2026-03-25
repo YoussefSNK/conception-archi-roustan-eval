@@ -53,6 +53,15 @@ class StudentIterator4(Iterator):
         return student
 
 
+def singleton(cls):
+    instances = {}
+    def get_instance(*args, **kwargs):
+        if cls not in instances:
+            instances[cls] = cls(*args, **kwargs)
+        return instances[cls]
+    return get_instance
+
+
 def add_iterator4(cls):
     def iter_matter_4(self):
         return StudentIterator4(self.students)
@@ -79,6 +88,7 @@ class Student:
         return sum(self.grades) / len(self.grades)
 
 
+@singleton
 @add_iterator4
 class SchoolClass(Iterable):
     def __init__(self):
