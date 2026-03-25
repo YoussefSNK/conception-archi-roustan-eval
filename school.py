@@ -28,9 +28,22 @@ class SchoolClass:
 
     def rank_matter_1(self):
         sorted_students = sorted(self.students, key=lambda s: s.grades[0], reverse=True)
-        print("Le top des meilleurs élèves sur l'évaluation de la première matière (surement des maths) :")
+        print("Top matière 1 :")
         for student in sorted_students:
             print(student.name, student.grades[0])
+
+    def rank_matter_2(self):
+        sorted_students = sorted(self.students, key=lambda s: s.grades[1], reverse=True)
+        print("Top matière 2 :")
+        
+        for student in sorted_students:
+            print(student.name, student.grades[1])
+
+    def rank_matter_3(self):
+        sorted_students = sorted(self.students, key=lambda s: s.grades[2], reverse=True)
+        print("Top matière 3 :")
+        for student in sorted_students:
+            print(student.name, student.grades[2])
 
 
 school_class = SchoolClass()
@@ -38,3 +51,5 @@ school_class.add_student(Student('J', 10, 12, 13))
 school_class.add_student(Student('A', 8, 2, 17))
 school_class.add_student(Student('V', 9, 14, 14))
 school_class.rank_matter_1()
+school_class.rank_matter_2()
+school_class.rank_matter_3()
