@@ -1,3 +1,19 @@
+from collections.abc import Iterable, Iterator
+
+
+class StudentIterator(Iterator):
+    def __init__(self, students):
+        self._students = sorted(students, key=lambda s: s.grades[0], reverse=True)
+        self._index = 0
+
+    def __next__(self):
+        if self._index >= len(self._students):
+            raise StopIteration
+        student = self._students[self._index]
+        self._index += 1
+        return student
+
+
 class Student:
     def __init__(self, name, grade1, grade2, grade3):
         self.name = name
@@ -7,9 +23,12 @@ class Student:
         return sum(self.grades) / len(self.grades)
 
 
-class SchoolClass:
+class SchoolClass(Iterable):
     def __init__(self):
         self.students = []
+
+    def __iter__(self):
+        return StudentIterator(self.students)
 
     def add_student(self, student):
         self.students.append(student)
@@ -53,3 +72,6 @@ school_class.add_student(Student('V', 9, 14, 14))
 school_class.rank_matter_1()
 school_class.rank_matter_2()
 school_class.rank_matter_3()
+
+for i in school_class:
+    print(i.name, i.grades[0])
